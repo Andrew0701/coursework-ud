@@ -81,7 +81,9 @@
 </div>
 <div id="bodyMainPan">
   <div id="bodyPan">
-    
+    <?php
+		get_body();
+    ?>
   </div>
 </div>
 <div id="footermainPan">
@@ -95,6 +97,30 @@
 			echo $_COOKIE['access']." <a href= 'logout.php'>Выход</a>";
 		}else{
 			echo "Здравствуй, гость"."<br><a href= 'index.php?action=in'>Войти</a><br><a href= 'index.php?action=reg'>Зарегистрироваться</a>";
+		}
+	}
+	
+	function get_body(){
+		if (isset($_GET['action'])){
+			switch($_GET['action']) { //получаем значение переменной action
+				case "search":
+					require_once("search.php");
+					break;
+				case "show":
+					require_once("show.php");
+					break;
+				case "add":
+					require_once("add.php");
+					break;
+				case "showing":
+					require_once("showing.php");
+					break;
+				default:
+					require_once('main.php');
+					break;
+			}
+		}else{
+			require_once('main.php');
 		}
 	}
 ?>	
