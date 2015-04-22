@@ -49,6 +49,15 @@
 					case "show":
 						require_once("about_show.html");
 						break;
+					case "add":
+						require_once("about_add.html");
+						break;
+					case "showing":
+						require_once("about_showing.html");
+						break;
+					case "recom":
+						require_once("about_recom.html");
+						break;
 					default:
 						echo "Описание главной страницы";
 						break;
@@ -114,6 +123,9 @@
 					break;
 				case "showing":
 					require_once("showing.php");
+					break;
+				case "recom":
+					require_once("recom.php");
 					break;
 				default:
 					require_once('main.php');
