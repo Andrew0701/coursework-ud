@@ -13,7 +13,7 @@
 		</tr>
 		<tr>
 			<td> <input type="submit" value="OK" name="submit"></td>
-			<td><a href='./reg.php'>Зарегистрироваться</a></td>
+			<td><a href='./index.php?action=reg'>Зарегистрироваться</a></td>
 		</tr>
 	</form>
 </table> 
