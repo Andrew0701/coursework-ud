@@ -29,8 +29,12 @@
     </div>
     <div id = 'login'>
 		<?php
-			include_once("in.php");
+			if (isset($_COOKIE['id'])){
+				echo $_COOKIE['access']." <a href= 'logout.php'>Выход</a>";
+			}else
+				echo "Здравствуй, гость"."<br><a href= 'in.php'>Войти</a><br><a href= 'reg.php'>Зарегистрироваться</a>"
 		?>
+		
       </div>
   </div>
 </div>

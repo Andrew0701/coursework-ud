@@ -17,7 +17,19 @@
 		</tr>
 		<tr>
 			<td>Email</td>
-			<td><input type="text" name="email"></td>
+			<td>
+				<input type="text" name="email">
+			</td>
+		</tr>
+		<tr>
+			<td>Кем являетесь</td>
+			<td>
+				<select name="status">
+					<option value="Студент" selected="selected">Студент</option>
+					<option value="Преподаватель">Преподаватель</option>
+					<option value="Библиотекарь">Библиотекарь</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td><input type="submit" value="OK" name="submit" ></td>
@@ -43,16 +55,18 @@
 			$password = $_POST['password'];
 			$password2 = $_POST['password2'];
 			$email = $_POST['email'];
+			$status = $_POST['status'];
 			$query = "SELECT `id` FROM `reg` WHERE `login`='{$login}' AND `password`='{$password}'";
 			$sql = mysql_query($query) or die(mysql_error());
 			if (mysql_num_rows($sql) > 0){
 				echo 'Ошибка регистрации';
 			}else{
-				$query = "INSERT INTO reg(login , password , email )
-				VALUES ('$login', '$password', '$email')";
+				$query = "INSERT INTO reg(login , password , email , access)
+				VALUES ('$login', '$password', '$email', '$status')";
 				$result = mysql_query($query) or die(mysql_error());
 				echo 'Регистрация прошла успешно';
-				header("Location: login.php");
+				header("Location: in.php");
 			}
 		}
 	}
+?>

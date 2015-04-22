@@ -37,7 +37,11 @@ ul{list-style-type:none;}
 
 /*----Top Body Left----*/
 /*----Top Body Right----*/
-#topbodyrightPan{width:266px; height:150px; float:left; background:url(images/image1.jpg) 328px 21px no-repeat #FFFAEE; color:#8D6C1B; padding:18px 280px 0 0;}
+#topbodyrightPan{width:266px; height:150px; float:left;
+/*
+ background:url(images/image1.jpg) 328px 21px no-repeat #FFFAEE; color:#8D6C1B; 
+*/
+ padding:18px 10px 0 0;}
 
 #topbodyrightPan h2{ height:28px; display:block; background:url(images/topheading-dottedline.gif) 111px 21px no-repeat #FFFAEE; color:#BE8A0A; font:24px/28px Georgia, "Times New Roman", Times, serif; font-weight:bold; padding:0 150px 0 0;}
 
