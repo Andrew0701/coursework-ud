@@ -120,6 +120,9 @@
 	function get_body(){
 		if (isset($_GET['action'])){
 			switch($_GET['action']) { //получаем значение переменной action
+				case "about":
+					require_once("about.html");
+					break;
 				case "search":
 					require_once("search.php");
 					break;
