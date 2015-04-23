@@ -93,10 +93,18 @@
     <?php
 		get_body();
     ?>
+    <div id='bodyrightPan'>
+		<?php
+			get_right_content();
+		?>
   </div>
+  </div>
+  
 </div>
 <div id="footermainPan">
-
+	<div id = "footerPan">
+		У кого какие идеи здесь что-нибудь разместить?
+	</div>
 </div>
 </body>
 </html>
@@ -134,5 +142,29 @@
 		}else{
 			require_once('main.php');
 		}
+	}
+	
+	function get_right_content(){
+		if (isset($_COOKIE['access'])){
+			switch ($_COOKIE['access']){
+				case 'Студент':
+					require_once('top_liter.php');
+					break;
+				case 'Преподаватель':
+					require_once('top_students.php');
+					break;
+				case 'Библиотекарь':
+					require_once('top_dobav.php');
+					break;
+				default:
+					get_banner();
+					break;
+			}
+		}else{
+			get_banner();
+		}
+	}
+	function get_banner(){
+		echo "Тут никогда не будет вашей рекламы";
 	}
 ?>	

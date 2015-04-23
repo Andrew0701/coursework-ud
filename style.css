@@ -103,7 +103,7 @@ ul{list-style-type:none;}
 #bodyleftPan p.three span{font-weight:bold;}
 /*--------/Body Left Panel----------*/
 /*--------Body Right Panel----------*/
-#bodyrightPan{width:264px; float:left;}
+#bodyrightPan{width:264px; float:right;}
 #bodyrightPan form{width:264px; height:162px; background:#FFF0CC; color:#000; font:11px/14px Verdana, Arial, Helvetica, sans-serif;}
 #bodyrightPan form h2{width:253px; height:25px; background:#8D6C1B; color:#fff; font:20px/25px Georgia, "Times New Roman", Times, serif; font-weight:bold; padding:0 0 0 11px; margin:0 0 6px 0;}
 
