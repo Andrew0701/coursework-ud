@@ -2,7 +2,7 @@
 	header('Content-Type: text/html; charset=utf-8');
 ?>
 <table>
-	<form action="reg.php" method="POST">
+	<form action="index.php?action=reg" method="POST">
 		<tr>
 			<td>Имя</td>
 			<td><input type="text" name="login" ></td>
@@ -33,7 +33,7 @@
 		</tr>
 		<tr>
 			<td><input type="submit" value="OK" name="submit" ></td>
-			<td><a href = './in.php'>Войти</a></td>
+			<td><a href = './index.php?action=in'>Войти</a></td>
 		</tr>
 	</form>
 </table>
@@ -65,7 +65,7 @@
 				VALUES ('$login', '$password', '$email', '$status')";
 				$result = mysql_query($query) or die(mysql_error());
 				echo 'Регистрация прошла успешно';
-				header("Location: in.php");
+				header("Location: index.php?action=in");
 			}
 		}
 	}

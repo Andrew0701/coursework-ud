@@ -77,6 +77,9 @@
 					case "reg":
 						require_once("reg.php");
 						break;
+					case "log":
+						require_once("login.php");
+						break;
 					default:
 						default_autorization();
 						break;
