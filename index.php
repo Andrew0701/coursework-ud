@@ -100,7 +100,7 @@
 		<?php
 			get_right_content();
 		?>
-  </div>
+	</div>
   </div>
   
 </div>

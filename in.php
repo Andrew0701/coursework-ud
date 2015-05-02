@@ -2,7 +2,7 @@
 	header('Content-Type: text/html; charset=utf-8');
 ?>
 <table>
-	<form action="login.php" method="POST">
+	<form action="index.php?action=log" method="POST">
 		<tr>
 			<td>Имя</td>
 			<td><input type="text" name="login"></td>

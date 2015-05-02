@@ -36,7 +36,7 @@
 			header("Location: index.php");
 			echo 'Авторизация прошла успешно \n Вы - '.$data['access'];
 		}else
-			echo 'Ошибка авторизации';
+			echo 'Ошибка авторизации <br><a href="index.php?action=in">Попробовать еще раз</a>';
 	}else{
 		echo 'Что-то с кнопкой';
 	}
