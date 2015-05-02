@@ -11,16 +11,17 @@
 		$query = $_POST['sql'];
 		include_once("connect.php");
 		$q = mysql_query($query) or die(mysql_error());
-		echo mysql_result($q,1);
+		
 		if ($q){
-			//~ while ($row = mysql_fetch_object($q)) {
-				//~ echo $row->id." ";
-				//~ echo $row->login."<br>";
-			//~ }
-			while ($row = mysql_fetch_array($q, MYSQL_ASSOC)) {
-				echo $row["name"];
-			}	
 			
+			echo '<table>';
+			while ($row = mysql_fetch_row($q)) {
+				echo '<tr>';
+				for ($i = 0; $i<count($row); $i++)
+					echo '<td>'.$row[$i].'</td>';
+				echo '</tr>';
+			}
+			echo '</table>';
 			mysql_free_result($q);
 		}
 	}

@@ -17,7 +17,7 @@
 		$login = $_POST['login'];
 		$password = $_POST['password'];
 		$query = "SELECT id, login, password, access FROM reg WHERE login ='{$login}' AND password='{$password}' LIMIT 1";
-		$sql = mysql_query($query) or die(mysql_error());
+		$sql = mysql_query($query);
 		if (mysql_num_rows($sql) == 1){
 		
 			$data = mysql_fetch_assoc($sql);
