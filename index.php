@@ -19,7 +19,6 @@
 			if (isset($_COOKIE['access'])){
 				echo "<li><a href='index.php?action=search'>Поиск</a></li>";
 				echo "<li><a href='index.php?action=show'>Выставка</a></li>";
-				
 				switch ($_COOKIE['access']){
 					case 'Преподаватель':
 						echo "<li><a href='index.php?action=add'>Добавить</a></li>";
@@ -94,7 +93,7 @@
 <div id="bodyMainPan">
   <div id="bodyPan">
     <?php
-		get_body();
+		get_body();				
     ?>
     <div id='bodyrightPan'>
 		<?php
@@ -172,5 +171,21 @@
 	}
 	function get_banner(){
 		echo "Тут никогда не будет вашей рекламы";
+	}
+	function get_student_info() {
+		require_once('connect.php');
+		$id = $_COOKIE['id'];
+		$query = "SELECT * FROM student WHERE id_reg = ".$id;
+		$q = mysql_query($query) or die(mysql_error());
+		
+		while ($row = mysql_fetch_row($q)) {
+			for ($i = 0; $i<count($row); $i++)
+				echo $row[$i].'<br>';
+		}
+		mysql_free_result($q);
+		//~ $row = mysql_fetch_row($res);
+		//~ echo "Номер зачетной книжки:  ".$row[0]."<br>";
+		//~ echo "Имя:  ".$row[3]."<br>";
+		//~ echo "Группа:  ".$row[2]."<br>";
 	}
 ?>	

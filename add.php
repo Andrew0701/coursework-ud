@@ -58,19 +58,53 @@ SELECT something FROM tbl_name
 			echo 'Заполните все поля';
 		}else{
 			include_once("connect.php");
-			$query = "select * from 'recource' where name = '".$_POST['name']."'";
-			if (mysql_num_rows($query) == 1){
+			$query = "select * from resource where name = '".$_POST['name']."'";
+			$sql = mysql_query($query) or die(mysql_error());
+			if (mysql_num_rows($sql) > 0){
 				echo "Извините, такая литература уже существует";
 				return;
-			}
-			$query = "INSERT INTO `resource`(`id_reg`, `name`, `year`, `publisher`, `pages`, `date_create`, `reference`) 
-			VALUES ('".$_COOKIE['id']."','".$_POST['name']."','".$_POST['year']."','".$_POST['publ']."','".$_POST['pages']."',NOW(),'".$_POST['reff']."')";
-			if (mysql_query($query) == false){
-				echo 'Ошибка в запросе';
 			}else{
-				echo 'Всё ок, ресурс добавлен (без автора)';
-				$query = "select * from 'author' where name = '".$_POST['author']."'";
-			
+				$query = "INSERT INTO resource(`id_reg`, `name`, `year`, `publisher`, `pages`, `date_create`, `reference`) 
+				VALUES (".$_COOKIE['id'].",'".$_POST['name']."',".$_POST['year'].",'".$_POST['publ']."',".$_POST['pages'].",NOW(),'".$_POST['reff']."')";
+				if (mysql_query($query) == false){
+					echo 'Ошибка в запросе';
+				}else{
+					echo 'Всё ок, ресурс добавлен (без автора)';
+					$query = "select * from author where name = '".$_POST['author']."'";
+					$sql = mysql_query($query) or die(mysql_error());
+					if (mysql_num_rows($sql) > 0){
+						echo 'Этот автор уже есть, не добавляю автора';
+					}else{
+						$query = "insert into author (name) values ('".$_POST['author']."')";
+					}
+					if (isset($_POST['author1'])){
+						$query = "select * from author where name = '".$_POST['author1']."'";
+						if (mysql_num_rows($query) == 1){
+							echo 'Этот автор1 уже есть, не добавляю автора1';
+						}else{
+							$query = "insert into author (name) values ('".$_POST['author1']."')";
+							$sql = mysql_query($query);
+						}
+						if (isset($_POST['author2'])){
+							$query = "select * from author where name = '".$_POST['author2']."'";
+							if (mysql_num_rows($query) == 1){
+								echo 'Этот автор2 уже есть, не добавляю автора2';
+							}else{
+								$query = "insert into author (name) values ('".$_POST['author2']."')";
+								$sql = mysql_query($query);
+							}
+							if (isset($_POST['author3'])){
+								$query = "select * from author where name = '".$_POST['author3']."'";
+								if (mysql_num_rows($query) == 1){
+									echo 'Этот автор3 уже есть, не добавляю автора3';
+								}else{
+									$query = "insert into author (name) values ('".$_POST['author3']."')";
+									$sql = mysql_query($query);
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
