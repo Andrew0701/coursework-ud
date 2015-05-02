@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>GuldeLine</title>
+<title>Библиотека СевГУ</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -9,12 +9,13 @@
 <div id="TopMainPan">
   <div id="topPan">
     <div id="topheaderPan"> <a href=""><img src="images/logo.gif" alt="Gulde Line" width="228" height="54" border="0" title="Gulde Line" /></a>
-      <p class="captiontext">Какой-то текст рядом с логотопом.</p>
+      <p class="captiontext">Онлайн-библиотека СевГУ.</p>
     </div>
     <div id="topbodyleftPan">
       <ul>
-        <li class="home"><a href = 'index.php'>Главная</a></li>
+        <li><a href = 'index.php'>Главная</a></li>
         <li><a href="index.php?action=about">О библиотеке</a></li>
+        <li class="border"><a href="index.php?action=query_to_db">Запрос к базе</a></li>
         <?php
 			if (isset($_COOKIE['access'])){
 				echo "<li><a href='index.php?action=search'>Поиск</a></li>";
@@ -36,7 +37,7 @@
         ?>
       </ul>
     </div>
-    <div id="topbodyrightPan">
+    <div id="topbodycenterPan">
 		<?php
 			if (isset($_GET['action'])){
 				switch($_GET['action']) { //получаем значение переменной action
@@ -59,15 +60,15 @@
 						require_once("about_recom.html");
 						break;
 					default:
-						echo "Описание главной страницы";
+						echo "<h2>Вход в систему</h2> (тут надо ещё подумать, потому что это вылазит и на вход и на регистрацию)";
 						break;
 				}
 			}else{
-				echo "Описание главной страницы";
+				require_once("about_main.html");
 			}
 		?>
     </div>
-    <div>
+    <div id="topbodyrightPan">
 		<?php
 			if (isset($_GET['action'])){
 				switch($_GET['action']) { //получаем значение переменной action
@@ -92,32 +93,112 @@
   </div>
 </div>
 <div id="bodyMainPan">
-  <div id="bodyPan">
+  <div id="bodyleftPan">
     <?php
 		get_body();
     ?>
+   </div>
     <div id='bodyrightPan'>
 		<?php
 			get_right_content();
 		?>
 	</div>
-  </div>
   
 </div>
 <div id="footermainPan">
 	<div id = "footerPan">
-		У кого какие идеи здесь что-нибудь разместить?
+		&copy; Онлайн-библиотека СевГу. 2015г.<br>
+		Курсовой проект выполнили: Дрозд С. А., Сухоруков М. В., Ульяненко А. О.
 	</div>
 </div>
 </body>
 </html>
 <?php
 	function default_autorization(){
+		require_once('connect.php');
 		if (isset($_COOKIE['id'])){
-			echo $_COOKIE['access']." <a href= 'logout.php'>Выход</a>";
+			echo $_COOKIE['access']." <a href= 'logout.php'>Выход</a><br><br><h2>Данные об учётной записи:</h2><br>";
+			switch ($_COOKIE['access']){
+				case 'Студент':
+					get_student_info();
+					break;
+				case 'Преподаватель':
+					get_teacher_info();
+					break;
+				case 'Библиотекарь':
+					get_librarian_info();
+					break;
+				default:
+					get_banner();
+					break;
+			}
+			
 		}else{
 			echo "Здравствуй, гость"."<br><a href= 'index.php?action=in'>Войти</a><br><a href= 'index.php?action=reg'>Зарегистрироваться</a>";
 		}
+	}
+	
+	function get_student_info() {
+		$id = $_COOKIE['id'];
+		$query = "SELECT * FROM student WHERE id_reg = ".$id;
+		$res = mysql_query($query) or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		echo "<table>";
+		echo "<tr>
+					<td>№ зачетной книжки:</td>
+					<td>".$row[0]."</td>
+				</tr>";
+		echo "<tr>
+					<td>Имя:</td>
+					<td>".$row[3]."</td>
+				</tr>";
+		echo "<tr>
+					<td>№ группы:</td>
+					<td>".$row[2]."</td>
+				</tr>";
+		echo "</table>";
+	}
+	
+	function get_teacher_info() {
+		$id = $_COOKIE['id'];
+		$query = "SELECT * FROM teacher WHERE id_reg = ".$id;
+		$res = mysql_query($query) or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		echo "<table>";
+		echo "<tr>
+					<td>Персональный номер:</td>
+					<td>".$row[0]."</td>
+				</tr>";
+		echo "<tr>
+					<td>Имя:</td>
+					<td>".$row[2]."</td>
+				</tr>";
+		echo "<tr>
+					<td>Опыт:</td>
+					<td>".$row[3]."</td>
+				</tr>";
+		echo "<tr>
+					<td>Id предмета:</td>
+					<td>".$row[4]."</td>
+				</tr>";				
+		echo "</table>";
+	}
+	
+	function get_librarian_info() {
+		$id = $_COOKIE['id'];
+		$query = "SELECT * FROM student WHERE id_librarian = ".$id;
+		$res = mysql_query($query) or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		echo "<table>";
+		echo "<tr>
+					<td>Имя:</td>
+					<td>".$row[1]."</td>
+				</tr>";
+		echo "<tr>
+					<td>Статус:</td>
+					<td>".$row[2]."</td>
+				</tr>";
+		echo "</table>";
 	}
 	
 	function get_body(){
