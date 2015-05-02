@@ -1,4 +1,7 @@
 /* CSS Document */
+table td{
+	vertical-align:top;
+}
 body{padding:0px; margin:0px; font:13px/14px Arial, Helvetica, sans-serif;}
 div, p, ul, h2, h3, form, label, select, img{padding:0px; margin:0px;}
 ul{list-style-type:none;}
