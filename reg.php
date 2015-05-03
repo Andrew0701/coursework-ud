@@ -100,6 +100,10 @@ function changeFields() {
 			echo 'Подтверждение пароля';
 		}elseif($_POST['password'] != $_POST['password2']){
 			echo 'Пароли не совпадают';
+		}elseif(empty($_POST['group'])){
+			echo 'Группа нужна';
+		
+		
 		}else{
 			$login = $_POST['login'];
 			$password = $_POST['password'];
