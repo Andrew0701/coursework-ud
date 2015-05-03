@@ -147,17 +147,26 @@ ul{list-style-type:none;}
 
 /*----Top Body Right----*/
 #topbodyrightPan {
-
 	width: 230px;
 	height: 175px;
 	float: left;
 	line-height: 1.3em;
 	padding: 18px 10px 0 10px;
-	
 }
 
 #topbodyrightPan a {
 	text-decoration: none;
+}
+
+#topbodyrightPan input {
+	width: 125px;
+	height: 15px;
+	color: #8D6C1B;
+	font-weight: bold;
+	border: 1px dotted #8D6C1B;
+	font-size: 11px;
+	
+	padding: 0px;
 }
 
 #topbodyrightPan a:hover {
