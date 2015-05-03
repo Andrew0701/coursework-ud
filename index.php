@@ -16,8 +16,7 @@
     <div id="topbodyleftPan">
       <ul>
         <li><a href = 'index.php'>Главная</a></li>
-        <li><a href="index.php?action=about">О библиотеке</a></li>
-        <li class="border"><a href="index.php?action=query_to_db">Запрос к базе</a></li>
+        <li  class="border"><a href="index.php?action=about">О библиотеке</a></li>
         <?php
 			if (isset($_COOKIE['access'])){
 				echo "<li><a href='index.php?action=search'>Поиск</a></li>";
@@ -28,6 +27,7 @@
 						echo "<li><a href='index.php?action=recom'>Рекомендовать</a></li>";
 						break;
 					case 'Библиотекарь':
+						echo "<li><a href='index.php?action=query_to_db'>Запрос к базе</a></li>";
 						echo "<li><a href='index.php?action=add'>Добавить</a></li>";
 						echo "<li><a href='index.php?action=showing'>Выставить</a></li>";
 						break;
@@ -232,6 +232,9 @@
 				case "recom":
 					require_once("recom.php");
 					break;
+				case "query_to_db":
+					require_once("query_to_db.php");
+					break;	
 				default:
 					require_once('main.php');
 					break;
