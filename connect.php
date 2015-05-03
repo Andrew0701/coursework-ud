@@ -3,7 +3,7 @@
 	$dblocation = "localhost";
 	$dbname = "course_work";
 	$dbuser = "root";
-	$dbpasswd = "333";
+	$dbpasswd = "nepnon";
 	$dbcnx = @mysql_connect($dblocation,$dbuser,$dbpasswd);
 	mysql_query("SET NAMES 'UTF-8'");
 	if (!$dbcnx){

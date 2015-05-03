@@ -4,6 +4,8 @@
 <title>Библиотека СевГУ</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="change.js"></script>
+
 </head>
 <body>
 <div id="TopMainPan">

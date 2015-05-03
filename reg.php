@@ -25,22 +25,12 @@
 				</select>
 			</td>
 		</tr>
-		<div id = 'paste'></div>
-		<tr>
+		<tr id = 'paste'>
 			<td><input type="submit" value="Отправить" name="submit" ></td>
 			<td><a href = './index.php?action=in'>Войти</a></td>
 		</tr>
 	</form>
 </table>
-<script>
-	function change(elem){
-		console.log(elem);
-		console.log(elem.value);
-		//~ var div = documetn.createElement('div');
-		//~ div.innerHTML = "<tr><td>Группа</td><td><input type='text' name = 'group'></td></tr><tr><td>Номер з.к.</td><td><input type='text' name = 'nomber_z_k'></td></tr>";
-		//~ document.getElementById('paste').appendChild(div);
-	}
-</script>
 
 <?php
 	include_once("connect.php");
@@ -53,6 +43,10 @@
 			echo 'Подтверждение пароля';
 		}elseif($_POST['password'] != $_POST['password2']){
 			echo 'Пароли не совпадают';
+		}elseif(empty($_POST['group'])){
+			echo 'Группа нужна';
+		
+		
 		}else{
 			$login = $_POST['login'];
 			$password = $_POST['password'];
