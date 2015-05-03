@@ -27,7 +27,7 @@
 		</tr>
 		<div id = 'paste'></div>
 		<tr>
-			<td><input type="submit" value="OK" name="submit" ></td>
+			<td><input type="submit" value="Отправить" name="submit" ></td>
 			<td><a href = './index.php?action=in'>Войти</a></td>
 		</tr>
 	</form>

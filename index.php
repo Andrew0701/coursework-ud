@@ -58,8 +58,17 @@
 					case "recom":
 						require_once("about_recom.html");
 						break;
+					case "reg":
+						require_once("about_reg.html");
+						break;
+					case "in":
+						require_once("about_in.html");
+						break;
+					case "query_to_db":
+						require_once("about_query_to_db.html");
+						break;
 					default:
-						echo "<h2>Вход в систему</h2> (тут надо ещё подумать, потому что это вылазит и на вход и на регистрацию)";
+						echo "Три рандомных слова.";
 						break;
 				}
 			}else{
@@ -106,7 +115,7 @@
 </div>
 <div id="footermainPan">
 	<div id = "footerPan">
-		&copy; Онлайн-библиотека СевГу. 2015г.<br>
+		&copy; Онлайн-библиотека СевГУ. 2015г.<br>
 		Курсовой проект выполнили: Дрозд С. А., Сухоруков М. В., Ульяненко А. О.
 	</div>
 </div>
@@ -144,16 +153,16 @@
 		$row = mysql_fetch_row($res);
 		echo "<table>";
 		echo "<tr>
-					<td>№ зачетной книжки:</td>
-					<td>".$row[0]."</td>
-				</tr>";
-		echo "<tr>
 					<td>Имя:</td>
 					<td>".$row[3]."</td>
 				</tr>";
 		echo "<tr>
 					<td>№ группы:</td>
 					<td>".$row[2]."</td>
+				</tr>";
+		echo "<tr>
+					<td>№ зачетной книжки:</td>
+					<td>".$row[0]."</td>
 				</tr>";
 		echo "</table>";
 	}
@@ -164,10 +173,6 @@
 		$res = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_row($res);
 		echo "<table>";
-		echo "<tr>
-					<td>Персональный номер:</td>
-					<td>".$row[0]."</td>
-				</tr>";
 		echo "<tr>
 					<td>Имя:</td>
 					<td>".$row[2]."</td>
@@ -180,6 +185,10 @@
 					<td>Id предмета:</td>
 					<td>".$row[4]."</td>
 				</tr>";				
+		echo "<tr>
+					<td>Персональный номер:</td>
+					<td>".$row[0]."</td>
+				</tr>";
 		echo "</table>";
 	}
 	
@@ -231,8 +240,8 @@
 	}
 	
 	function get_right_content(){
-		if (isset($_COOKIE['access'])){
-			switch ($_COOKIE['access']){
+		if (isset($_COOKIE['access'])) {
+			switch ($_COOKIE['access']) {
 				case 'Студент':
 					require_once('top_liter.php');
 					break;
@@ -246,10 +255,11 @@
 					get_banner();
 					break;
 			}
-		}else{
+		}else {
 			get_banner();
 		}
 	}
+
 	function get_banner(){
 		echo "Тут никогда не будет вашей рекламы";
 	}
