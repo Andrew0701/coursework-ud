@@ -12,31 +12,36 @@
 			<td><input type="password" name="password" ></td>
 		</tr>
 		<tr>
-			<td>Повторите пароль</td>
+			<td>Пароль</td>
 			<td><input type="password" name="password2"></td>
 		</tr>
 		<tr>
-			<td>Email</td>
+			<td>Кто вы?</td>
 			<td>
-				<input type="text" name="email">
-			</td>
-		</tr>
-		<tr>
-			<td>Кем являетесь</td>
-			<td>
-				<select name="status">
-					<option value="Студент" selected="selected">Студент</option>
+				<select name="status" onchange = 'change(this)'>
+					<option value="Студент">Студент</option>
 					<option value="Преподаватель">Преподаватель</option>
 					<option value="Библиотекарь">Библиотекарь</option>
 				</select>
 			</td>
 		</tr>
+		<div id = 'paste'></div>
 		<tr>
 			<td><input type="submit" value="OK" name="submit" ></td>
 			<td><a href = './index.php?action=in'>Войти</a></td>
 		</tr>
 	</form>
 </table>
+<script>
+	function change(elem){
+		console.log(elem);
+		console.log(elem.value);
+		//~ var div = documetn.createElement('div');
+		//~ div.innerHTML = "<tr><td>Группа</td><td><input type='text' name = 'group'></td></tr><tr><td>Номер з.к.</td><td><input type='text' name = 'nomber_z_k'></td></tr>";
+		//~ document.getElementById('paste').appendChild(div);
+	}
+</script>
+
 <?php
 	include_once("connect.php");
 	if (isset($_POST['submit'])){
@@ -48,8 +53,6 @@
 			echo 'Подтверждение пароля';
 		}elseif($_POST['password'] != $_POST['password2']){
 			echo 'Пароли не совпадают';
-		}elseif(empty($_POST['email'])){
-			echo 'Введите E-mail';
 		}else{
 			$login = $_POST['login'];
 			$password = $_POST['password'];
