@@ -344,3 +344,13 @@ form input {
 	color: #fff;
 	font-size: 11px;
 }
+
+/*---HIDDEN TEXTFIELD---*/
+
+.hidden {
+	display: none;
+}
+
+.visible {
+	display: auto;
+}
