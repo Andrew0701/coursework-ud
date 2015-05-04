@@ -152,14 +152,23 @@
 		$query = "SELECT * FROM student WHERE id_reg = ".$id;
 		$res = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_row($res);
+		
+		$query = "SELECT * FROM reg WHERE id = ".$id;
+		$res = mysql_query($query) or die(mysql_error());
+		$row2 = mysql_fetch_row($res);
+		
+		$query = "SELECT * FROM direction WHERE id_direction = ".$row[2];
+		$res = mysql_query($query) or die(mysql_error());
+		$row3 = mysql_fetch_row($res);
+		
 		echo "<table>";
 		echo "<tr>
 					<td>Имя:</td>
-					<td>".$row[3]."</td>
+					<td>".$row2[1]."</td>
 				</tr>";
 		echo "<tr>
-					<td>№ группы:</td>
-					<td>".$row[2]."</td>
+					<td>Направление:</td>
+					<td>".$row3[1]."</td>
 				</tr>";
 		echo "<tr>
 					<td>№ зачетной книжки:</td>
@@ -169,28 +178,36 @@
 	}
 	
 	function get_teacher_info() {
-		$id = $_COOKIE['id'];
-		$query = "SELECT * FROM teacher WHERE id_reg = ".$id;
+		$query = "SELECT login FROM reg WHERE id = ".$_COOKIE['id'];
 		$res = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_row($res);
 		echo "<table>";
 		echo "<tr>
 					<td>Имя:</td>
-					<td>".$row[2]."</td>
-				</tr>";
-		echo "<tr>
-					<td>Опыт:</td>
-					<td>".$row[3]."</td>
-				</tr>";
-		echo "<tr>
-					<td>Id предмета:</td>
-					<td>".$row[4]."</td>
-				</tr>";				
-		echo "<tr>
-					<td>Персональный номер:</td>
 					<td>".$row[0]."</td>
 				</tr>";
-		echo "</table>";
+		mysql_free_result($res);
+		
+		$query = "SELECT experience FROM teacher WHERE id_reg = ".$_COOKIE['id'];
+		$res = mysql_query($query) or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		echo "<tr>
+					<td>Опыт:</td>
+					<td>".$row[0]."</td>
+				</tr>";
+		mysql_free_result($res);
+		
+		$query = "select name from subject where id_subject in 
+		(SELECT id_subject FROM teacher_subject WHERE id_reg = ".$_COOKIE['id'].")";
+		$res = mysql_query($query) or die(mysql_error());
+		echo "<tr>
+				<td>Мои предметы:</td>
+				<td>";
+		while ($row = mysql_fetch_row($res)) {
+			echo $row[0].'<br>';
+		}
+		echo "</td></tr></table>";
+		mysql_free_result($res);
 	}
 	
 	function get_librarian_info() {

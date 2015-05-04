@@ -18,7 +18,7 @@
 		<tr>
 			<td>Кто вы?</td>
 			<td>
-				<select id="select" name="status" onchange = "changeFields()">
+				<select id="select" name="statut" onchange = "changeFields()">
 					<option value="Студент">Студент</option>
 					<option value="Преподаватель">Преподаватель</option>
 					<option value="Библиотекарь">Библиотекарь</option>
@@ -27,7 +27,28 @@
 		</tr>
 		<tr class="hidden" name="student">
 			<td>Направление</td>
-			<td><input  type="text" name="spec"></td>
+			<td><select name="spec">
+			
+				<?php
+					include_once("connect.php");
+					$query = "SELECT * FROM direction";
+					$q = mysql_query($query) or die(mysql_error());
+					try {
+						if ($q){
+							while ($row = mysql_fetch_row($q)) {
+								$direction[$row[1]] = $row[0];
+								echo "<option value='".$row[0]."'>".$row[1]."</option>";
+							}
+							mysql_free_result($q);
+						}
+					}
+					catch (Exception $e) {
+						echo "Exception";
+					}
+				?>
+			</select>
+			
+			</td>
 		</tr>
 		<tr class="hidden" name="student">
 			<td>Номер зач. кн.</td>
@@ -35,7 +56,8 @@
 		</tr>
 		<tr class="hidden" name="prepod">
 			<td>Список дисциплин</td>
-			<td><input  type="text" name="subjects"></td>
+			<td><input  type="text" name="subjects" onfocus = 'onmouseOver()' onblur = 'onmouseOut()'>
+			<div id = 'parentID'></div></td>
 		</tr>
 		<tr class="hidden" name="prepod">
 			<td>Стаж</td>
@@ -52,15 +74,19 @@
 		</tr>
 	</form>
 </table>
+
 <script>
-	function change(elem){
-		console.log(elem);
-		console.log(elem.value);
-		//~ var div = documetn.createElement('div');
-		//~ div.innerHTML = "<tr><td>Группа</td><td><input type='text' name = 'group'></td></tr><tr><td>Номер з.к.</td><td><input type='text' name = 'nomber_z_k'></td></tr>";
-		//~ document.getElementById('paste').appendChild(div);
+	function onmouseOver(){
+		var div = document.getElementById('parentID');
+		str = "Через запятую";
+		div.innerHTML = str;
+	}
+	function onmouseOut(){
+		var div = document.getElementById('parentID');
+		div.removeChild(div.firstChild);
 	}
 </script>
+
 <script>
 function hideAll(rawNames) {
 	for (i in rawNames) {
@@ -100,26 +126,112 @@ function changeFields() {
 			echo 'Подтверждение пароля';
 		}elseif($_POST['password'] != $_POST['password2']){
 			echo 'Пароли не совпадают';
-		}elseif(empty($_POST['group'])){
-			echo 'Группа нужна';
-		
-		
 		}else{
-			$login = $_POST['login'];
-			$password = $_POST['password'];
-			$password2 = $_POST['password2'];
-			$email = $_POST['email'];
-			$status = $_POST['status'];
-			$query = "SELECT `id` FROM `reg` WHERE `login`='{$login}' AND `password`='{$password}'";
-			$sql = mysql_query($query) or die(mysql_error());
-			if (mysql_num_rows($sql) > 0){
-				echo 'Ошибка регистрации';
-			}else{
-				$query = "INSERT INTO reg(login , password , email , access)
-				VALUES ('$login', '$password', '$email', '$status')";
-				$result = mysql_query($query) or die(mysql_error());
-				echo 'Регистрация прошла успешно';
-				header("Location: index.php?action=in");
+			switch($_POST['statut']){
+				case 'Студент':
+					if (empty($_POST['spec'])){
+						echo 'Выбери группу';
+						return;
+					}
+					if (empty($_POST['no_kn'])){
+						echo 'Необходима зачётная книжка';
+						return;
+					}
+					//			echo 'Обработка студента';
+					$login = $_POST['login'];
+					$password = $_POST['password'];
+					$status = $_POST['statut'];
+					$query = "SELECT `id` FROM `reg` WHERE `login`='{$login}' AND `password`='{$password}'";
+					$sql = mysql_query($query) or die(mysql_error());
+					if (mysql_num_rows($sql) > 0){
+						echo 'Ошибка регистрации';
+					}else{
+						$query = "INSERT INTO reg(login , password , access)
+						VALUES ('$login', '$password', '$status')";
+						$result = mysql_query($query) or die(mysql_error());
+						
+						$query = "SELECT `id` FROM `reg` WHERE `login`='{$login}' AND `password`='{$password}'";
+						$result = mysql_query($query) or die(mysql_error());
+						$row = mysql_fetch_row($result);//row[0] - id пользователя в таблице reg
+						
+						$query = "INSERT INTO student(n_record_book, id_reg, `group`)
+						VALUES (".$_POST['no_kn'].",".$row[0].",".$_POST['spec'].")";
+						$sql = mysql_query($query) or die(mysql_error());
+						
+						echo 'Регистрация прошла успешно';
+						header("Location: index.php?action=in");
+					}
+						
+					break;
+				case 'Преподаватель':
+					if (empty($_POST['subjects'])){
+						echo 'Выбери список сопровождаемых дисциплин (через запятую)';
+						return;
+					}
+					if (empty($_POST['experience'])){
+						echo 'Необходимо уазать опыт работы';
+						return;
+					}
+					//		echo 'Обработка преподавателя';
+					$login = $_POST['login'];
+					$password = $_POST['password'];
+					$status = $_POST['statut'];
+					$query = "SELECT `id` FROM `reg` WHERE `login`='{$login}' AND `password`='{$password}'";
+					$sql = mysql_query($query) or die(mysql_error());
+					if (mysql_num_rows($sql) > 0){
+						echo 'Ошибка регистрации';
+					}else{
+						
+						$subjects = split(',',$_POST['subjects']);
+						print_r ($subjects);
+						$c = 0;
+						for ($i = 0; $i < count($subjects); $i++){
+							$subjects[$i] = trim ($subjects[$i]);
+							$query = "select * from subject where name = '".$subjects[$i]."'";
+							$sql = mysql_query($query) or die(mysql_error());
+							if (mysql_num_rows($sql) > 0){
+								$row = mysql_fetch_row($sql);
+								$array_of_id_subjects[$c++] = $row[0];
+							}else{
+								echo "Нет такой дисциплины: ".$subjects[$i];
+								exit();
+							}
+						}
+						echo "<br> Вставляем в reg";
+						$query = "INSERT INTO reg(login , password , access)
+						VALUES ('$login', '$password', '$status')";
+						$result = mysql_query($query) or die(mysql_error());
+						echo "<br> Проверяем id";
+						$query = "SELECT `id` FROM `reg` WHERE `login`='{$login}' AND `password`='{$password}'";
+						$result = mysql_query($query) or die(mysql_error());
+						$row = mysql_fetch_row($result);//row[0] - id пользователя в таблице reg
+						echo "<br> Вставляем в teacher";
+						$query = "INSERT INTO teacher(id_reg, experience)
+						VALUES (".$row[0].",".$_POST['experience'].")";
+						$sql = mysql_query($query) or die(mysql_error());
+						echo "<br> Вставляем в teacher_subject";
+								// Здесь мы заполняем таблицу teacher_subject
+						for ($i = 0; $i < count($array_of_id_subjects); $i++){
+							echo "<br> Iteration";
+							$query = "insert into teacher_subject
+							values (".$row[0].", ".$array_of_id_subjects[$i].")";
+							mysql_query($query);
+						}
+						
+						echo 'Регистрация прошла успешно';
+						header("Location: index.php?action=in");
+					}
+					break;
+				case 'Библиотекарь':
+					if (empty($_POST['status'])){
+						echo 'Необходимо свой статус указать';
+						return;
+					}
+					//		echo 'Обработка библиотекаря';
+					
+					break;
+				default:
+					break;
 			}
 		}
 	}

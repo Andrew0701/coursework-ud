@@ -5,7 +5,7 @@
 	$q = mysql_query($query) or mysql_error();
 	try {
 		if ($q){
-			echo 'Результат запроса:<br>';
+			echo '<br>';
 			echo '<table border=1>';
 			while ($row = mysql_fetch_row($q)) {
 				echo '<tr>';
