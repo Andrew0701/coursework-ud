@@ -116,7 +116,7 @@ function changeFields() {
 		}
 	}
 }
-	
+changeFields();
 		
 </script>
 
@@ -233,7 +233,19 @@ function changeFields() {
 						return;
 					}
 					//		echo 'Обработка библиотекаря';
-					
+					$login = $_POST['login'];
+					$password = $_POST['password'];
+					$status = $_POST['statut'];
+					$query = "SELECT `id` FROM `reg` WHERE `login`='{$login}' AND `password`='{$password}'";
+					$sql = mysql_query($query) or die(mysql_error());
+					if (mysql_num_rows($sql) > 0){
+						echo 'Ошибка регистрации';
+					}else{
+						
+						
+						echo 'Регистрация прошла успешно';
+						header("Location: index.php?action=in");
+					}
 					break;
 				default:
 					break;

@@ -135,7 +135,7 @@
 					get_teacher_info();
 					break;
 				case 'Библиотекарь':
-					get_librarian_info();
+					//get_librarian_info();
 					break;
 				default:
 					get_banner();

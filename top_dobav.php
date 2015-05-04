@@ -1,6 +1,6 @@
 Самые активные заполнители библиотеки
 <?php	
-	$query = "select count(id_reg) as count from resource order by count";
+	$query = "select count(id_reg) as count from resource order by count limit 3";
 	include_once("connect.php");
 	$q = mysql_query($query) or mysql_error();
 	try {
