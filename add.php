@@ -14,7 +14,23 @@
 		</tr>
 		<tr>
 			<td>Ссылка</td>
-			<td><input type="text" name="reff"></td>
+			<td>Год выпуска</td>
+			<td><input type="text" name="year"></td>
+		</tr>
+		<tr>
+			<td>Количество страниц</td>
+			<td><input type="text" name="pages"></td>
+		</tr>
+		<tr>
+			<td>Издательство</td>
+			<td><input type="text" name="publ"></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="Опубликовать" name="submit_add" ></td>
+		</tr>
+	</form>
+</table>		<td><input type="text" name="reff"></td>
 		</tr>
 		<tr>
 			<td>Год выпуска</td>
@@ -63,7 +79,7 @@
 			if (mysql_num_rows($sql) > 0){
 				echo "Извините, такая литература уже существует";
 				return;
-			}else{
+			}else{ 
 				$query = "INSERT INTO resource(`id_reg`, `name`, `year`, `publisher`, `pages`, `date_create`, `reference`) 
 				VALUES (".$_COOKIE['id'].",'".$_POST['name']."',".$_POST['year'].",'".$_POST['publ']."',".$_POST['pages'].",NOW(),'".$_POST['reff']."')";
 				if (mysql_query($query) == false){
