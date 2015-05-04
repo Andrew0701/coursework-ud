@@ -33,7 +33,8 @@
 			<td><input type="submit" value="Опубликовать" name="submit_add" ></td>
 		</tr>
 	</form>
-</table>
+</table>	
+
 <script>
 	function onmouseOver(){
 		var div = document.getElementById('parentID');
@@ -63,7 +64,7 @@
 			if (mysql_num_rows($sql) > 0){
 				echo "Извините, такая литература уже существует";
 				return;
-			}else{
+			}else{ 
 				$query = "INSERT INTO resource(`id_reg`, `name`, `year`, `publisher`, `pages`, `date_create`, `reference`) 
 				VALUES (".$_COOKIE['id'].",'".$_POST['name']."',".$_POST['year'].",'".$_POST['publ']."',".$_POST['pages'].",NOW(),'".$_POST['reff']."')";
 				if (mysql_query($query) == false){

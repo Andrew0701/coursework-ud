@@ -65,7 +65,12 @@
 		</tr>
 		<tr class="hidden" name="librarian">
 			<td>Статус</td>
-			<td><input  type="text" name="status"></td>
+			<td>
+				<select id="select" name="status">
+					<option value="Младший">Младший</option>
+					<option value="Старший">Старший</option>
+				</select>
+			</td>
 		</tr>
 		<div id = 'paste'></div>
 		<tr>
