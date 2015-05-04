@@ -18,7 +18,7 @@
 		<tr>
 			<td>Кто вы?</td>
 			<td>
-				<select id="select" name="status" onchange = "changeFields()">
+				<select id="select" name="statut" onchange = "changeFields()">
 					<option value="Студент">Студент</option>
 					<option value="Преподаватель">Преподаватель</option>
 					<option value="Библиотекарь">Библиотекарь</option>
@@ -43,7 +43,12 @@
 		</tr>
 		<tr class="hidden" name="librarian">
 			<td>Статус</td>
-			<td><input  type="text" name="status"></td>
+			<td>
+				<select id="select" name="status">
+					<option value="Младший">Младший</option>
+					<option value="Старший">Старший</option>
+				</select>
+			</td>
 		</tr>
 		<div id = 'paste'></div>
 		<tr>
@@ -52,15 +57,6 @@
 		</tr>
 	</form>
 </table>
-<script>
-	function change(elem){
-		console.log(elem);
-		console.log(elem.value);
-		//~ var div = documetn.createElement('div');
-		//~ div.innerHTML = "<tr><td>Группа</td><td><input type='text' name = 'group'></td></tr><tr><td>Номер з.к.</td><td><input type='text' name = 'nomber_z_k'></td></tr>";
-		//~ document.getElementById('paste').appendChild(div);
-	}
-</script>
 <script>
 function hideAll(rawNames) {
 	for (i in rawNames) {
@@ -85,8 +81,8 @@ function changeFields() {
 		}
 	}
 }
-	
-		
+//первый вызов чтоб у студента по умолчанию были поля
+changeFields()		
 </script>
 
 <?php
@@ -100,10 +96,6 @@ function changeFields() {
 			echo 'Подтверждение пароля';
 		}elseif($_POST['password'] != $_POST['password2']){
 			echo 'Пароли не совпадают';
-		}elseif(empty($_POST['group'])){
-			echo 'Группа нужна';
-		
-		
 		}else{
 			$login = $_POST['login'];
 			$password = $_POST['password'];
