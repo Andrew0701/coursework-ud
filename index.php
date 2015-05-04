@@ -9,7 +9,7 @@
 <body>
 <div id="TopMainPan">
   <div id="topPan">
-    <div id="topheaderPan"> <a href=""><img src="images/logo.gif" alt="Gulde Line" width="228" height="54" border="0" title="Gulde Line" /></a>
+    <div id="topheaderPan"> <a href=""><img src="images/logo.png"height="54" border="0"/></a>
       <p class="captiontext">Онлайн-библиотека СевГУ.</p>
     </div>
     <div id="topbodyleftPan">
@@ -126,7 +126,7 @@
 	function default_autorization(){
 		require_once('connect.php');
 		if (isset($_COOKIE['id'])){
-			echo $_COOKIE['access']." <a href= 'logout.php'>Выход</a><br><br><h2>Данные об учётной записи:</h2><br>";
+			echo "<i>".$_COOKIE['access']."</i> <a href= 'logout.php'>Выход</a><br><br><h2>Данные об учётной записи:</h2><br>";
 			switch ($_COOKIE['access']){
 				case 'Студент':
 					get_student_info();

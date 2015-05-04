@@ -1,36 +1,28 @@
-Страница поиска<br><br>
-
-Ниже расположено окно для сложного запроса:
+Поиск можно осуществить по называнию произведения или по авторам.
+<br><br>
 <form action="index.php?action=search" method="POST">
-	<table border = 1>
+	<table>
 		<tr>
-			<td>
-				По автору
-			</td>
-			<td>
-				<input type = 'text' name = 'author'>
-			</td>
+			<td width=100>По автору</td>
+			<td><input type = 'text' name = 'author'></td>
 		</tr>
 		<tr>
-			<td>
-				По названию
-			</td>
-			<td>
-				<input type = 'text' name = 'name'>
-			</td>
+			<td>По названию</td>
+			<td><input type = 'text' name = 'name'></td>
 		</tr>
 		<tr>
-			<td>
-				<input type="submit" value="Показать все" name="submit_all">
-			</td>
-			<td>
-				<input type="submit" value="Поиск" name="submit_search">
-			</td>
+			<td><input type="submit" value="Поиск" name="submit_search"></td>
+			<td></td>		
+		</tr>
+		<tr>
+			<td><input type="submit" value="Показать все" name="submit_all"></td>
+			<td></td>		
 		</tr>
 	</table>
 	
 	
 </form>
+<br>
 
 <?php
 	if(isset($_POST['submit_search'])){
@@ -41,7 +33,7 @@
 			
 			if ($q){
 				
-				echo '<table>';
+				echo '<table border = 1>';
 				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';
 					for ($i = 0; $i<count($row); $i++)
@@ -59,7 +51,7 @@
 			$q = mysql_query($query) or die(mysql_error());
 			
 			if ($q){
-				echo '<table>';
+				echo '<table border = 1>';
 				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';
 					for ($i = 0; $i<count($row); $i++)
@@ -75,7 +67,7 @@
 		$q = mysql_query($query) or die(mysql_error());
 		if ($q){
 			
-			echo '<table>';
+			echo '<table border = 1>';
 			while ($row = mysql_fetch_row($q)) {
 				echo '<tr>';
 				for ($i = 0; $i<count($row); $i++)

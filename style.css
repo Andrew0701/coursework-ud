@@ -1,10 +1,20 @@
 /* CSS Document */
-table td{
-	vertical-align:top;
+table td {
+	vertical-align: top;
 }
-body{padding:0px; margin:0px; font:13px/14px Arial, Helvetica, sans-serif; overflow-y: scroll;}
-div, p, ul, h2, h3, form, label, select, img{padding:0px; margin:0px;}
-ul{list-style-type:none;}
+body {
+	padding: 0px;
+	margin: 0px;
+	font: 13px/14px Arial, Helvetica, sans-serif;
+	overflow-y: scroll;
+}
+div, p, ul, h2, h3, form, label, select, img {
+	padding: 0px;
+	margin: 0px;
+}
+ul {
+	list-style-type: none;
+}
 
 /*----TOP PANEL----*/
 #TopMainPan {
@@ -105,46 +115,6 @@ ul{list-style-type:none;}
 	padding-bottom: 5px;
 }
 
-#topbodycenterPan p {
-	padding: 3px 0;
-}
-#topbodycenterPan p span {
-	font-weight: bold;
-}
-#topbodycenterPan p.more {
-	width: 40px;
-	height: 13px;
-	margin: 0 0 0 222px;
-}
-#topbodycenterPan p.more a {
-	width: 40px;
-	height: 13px;
-	display: block;
-	background: #AC0481;
-	color: #fff;
-	font-size: 11px;
-	font-weight: bold;
-	text-align: center;
-	line-height: 12px;
-	text-decoration: none;
-}
-
-#topbodycenterPan p.more a:hover {
-	background: #BE8A0A;
-	color: #fff;
-	text-decoration: none;
-}
-
-#topbodyrightPan p.more a:hover{background:#BE8A0A; color:#fff; text-decoration:none;}
-/*----Top Header Panel----*/
-/*----/TOP PANEL----*/
-/*----BODY PANEL----*/
-#bodyMainPan{background:#fff; color:#8D6C1B; position:relative; margin:0 auto; clear:both; padding:25px 0 0;}
-/*----Body Panel----*/
-#bodyPan{width:749px; position:relative; margin:0 auto;}
-/*--------Body Left Panel----------*/
-#bodyleftPan{width:485px; float:left;}
-
 /*----Top Body Right----*/
 #topbodyrightPan {
 	width: 230px;
@@ -184,7 +154,6 @@ ul{list-style-type:none;}
 /*----/TOP PANEL----*/
 /*----BODY PANEL----*/
 #bodyMainPan {
-		
 	background: #fff;
 	color: #8D6C1B;
 	position: relative;
@@ -200,9 +169,14 @@ ul{list-style-type:none;}
 	float: left;
 }
 
+#bodyleftPan table {
+	width: 485px;
+}
+
 #bodyMainPan input {
-	width: 117px;
-	height: 20px;
+	height: 19px;
+	width: 170px;
+	margin: auto;
 	background: #FFFFFF;
 	color: #8D6C1B;
 	font-weight: bold;
@@ -211,19 +185,9 @@ ul{list-style-type:none;}
 	padding: 0px;
 }
 
-#bodyleftPan p.one{background:url(images/1.gif) 0 5px no-repeat; padding:5px 34px 0 34px;}
-#bodyleftPan p.one span{font-weight:bold;}
-
-#bodyleftPan p.two{background:url(images/2.gif) 0 5px no-repeat; padding:5px 34px 0 34px;}
-#bodyleftPan p.two span{font-weight:bold;}
-
-#bodyleftPan p.three{background:url(images/3.gif) 0 5px no-repeat; padding:5px 34px 0 34px;}
-#bodyleftPan p.three span{font-weight:bold;}
 /*--------/Body Left Panel----------*/
 /*--------Body Right Panel----------*/
 #bodyrightPan {
-		
-
 	width: 248px;
 	float: right;
 }
