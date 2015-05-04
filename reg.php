@@ -228,10 +228,6 @@ changeFields();
 					}
 					break;
 				case 'Библиотекарь':
-					if (empty($_POST['status'])){
-						echo 'Необходимо свой статус указать';
-						return;
-					}
 					//		echo 'Обработка библиотекаря';
 					$login = $_POST['login'];
 					$password = $_POST['password'];
@@ -241,7 +237,20 @@ changeFields();
 					if (mysql_num_rows($sql) > 0){
 						echo 'Ошибка регистрации';
 					}else{
+						echo "<br> Вставляем в reg";
+						$query = "INSERT INTO reg(login , password , access)
+						VALUES ('$login', '$password', '$status')";
+						$sql = mysql_query($query) or die(mysql_error());
 						
+						echo "<br> Запрос в reg";
+						$query = "SELECT `id` FROM `reg` WHERE `login`='{$login}' AND `password`='{$password}'";
+						$sql = mysql_query($query) or die(mysql_error());
+						$row = mysql_fetch_row($sql);
+						
+						echo "<br> Вставляем в librarian";
+						$query = "INSERT INTO librarian(id_reg, status)
+						VALUES (".$row[0].",'".$_POST['status']."')";
+						$sql = mysql_query($query) or die(mysql_error());
 						
 						echo 'Регистрация прошла успешно';
 						header("Location: index.php?action=in");

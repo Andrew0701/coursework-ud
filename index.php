@@ -135,7 +135,7 @@
 					get_teacher_info();
 					break;
 				case 'Библиотекарь':
-					//get_librarian_info();
+					get_librarian_info();
 					break;
 				default:
 					get_banner();
@@ -211,18 +211,21 @@
 	}
 	
 	function get_librarian_info() {
-		$id = $_COOKIE['id'];
-		$query = "SELECT * FROM librarian WHERE id_librarian = ".$id;
+		$query = "SELECT login FROM reg WHERE id = ".$_COOKIE['id'];
 		$res = mysql_query($query) or die(mysql_error());
 		$row = mysql_fetch_row($res);
 		echo "<table>";
 		echo "<tr>
 					<td>Имя:</td>
-					<td>".$row[1]."</td>
+					<td>".$row[0]."</td>
 				</tr>";
+		$query = "SELECT status FROM librarian WHERE id_reg = ".$_COOKIE['id'];
+		$res = mysql_query($query) or die(mysql_error());
+		$row = mysql_fetch_row($res);
+		
 		echo "<tr>
 					<td>Статус:</td>
-					<td>".$row[2]."</td>
+					<td>".$row[0]." библиотекарь</td>
 				</tr>";
 		echo "</table>";
 	}
