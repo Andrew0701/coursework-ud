@@ -7,9 +7,7 @@
 		if ($q){
 			echo '<br>';
 			echo '<table border=0>';
-			echo '<tr>
-			<td>Имя</td>
-			</tr>';
+
 			while ($row = mysql_fetch_row($q)) {
 				echo '<tr>';
 				for ($i = 0; $i<count($row); $i++)

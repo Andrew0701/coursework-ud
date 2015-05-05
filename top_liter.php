@@ -23,8 +23,12 @@ WHERE id_reg = ".$_COOKIE['id']."
 				echo '<table border=1><tr><td><b>Название</b></td><td><b>Ссылка</b></td></tr>';
 				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';
-					for ($i = 0; $i<count($row); $i++)
-						echo '<td>'.$row[$i].'</td>';
+					for ($i = 0; $i<count($row); $i++){
+						if ($i == 1) {
+							echo '<td><a href="'.$row[$i].'">Скачать</a></td>';
+						} else {
+							echo '<td>'.$row[$i].'</td>';
+						}
 					echo '</tr>';
 				}
 				echo '</table>';

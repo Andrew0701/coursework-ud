@@ -71,8 +71,7 @@
 					echo 'Ошибка в запросе';
 				}else{
 					echo 'Ресурс успешно добавлен.';
-											// Проверка всех авторов и запись их id в массив array_of_id_authors[]
-					
+					// Проверка всех авторов и запись их id в массив array_of_id_authors[]
 					$authors = split(',',$_POST['author']);
 					$c = 0;
 					for ($i = 0; $i < count($authors); $i++){

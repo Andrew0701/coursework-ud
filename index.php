@@ -23,7 +23,7 @@
 				switch ($_COOKIE['access']){
 					case 'Преподаватель':
 						echo "<li><a href='index.php?action=add'>Добавить</a></li>";
-						echo "<li><a href='index.php?action=recom'>Рекомендовать</a></li>";
+						echo "<li><a href='index.php?action=recom'>Рекомендации</a></li>";
 						break;
 					case 'Библиотекарь':
 						echo "<li><a href='index.php?action=query_to_db'>Запрос к базе</a></li>";
