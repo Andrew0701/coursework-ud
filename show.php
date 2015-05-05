@@ -1,4 +1,4 @@
-Страница выставки
+<b>Страница выставки</b><br><br>
 <?php
 	$query = "select id_show,name,(to_days(adddate(date_start, interval `time` day))-to_days(now())) from `show` where date_start < curdate() and adddate(date_start, interval `time` day) > curdate()";
 	include_once("connect.php");
@@ -6,6 +6,12 @@
 	
 	if ($sql){
 		echo '<table border = 1 cellspacing=0>';
+		echo '<tr>
+		<td>Название</td>
+		<td>Год</td>
+		<td>Издательство</td>
+		<td>Кол-во стр</td>
+		<td>Ссылка</td></tr>';
 		while ($row = mysql_fetch_row($sql)) {
 			echo '<tr>';
 			echo '<td colspan=5><b>'.$row[1].'</b> (осталось '.$row[2].' дня до завершения)</td>';

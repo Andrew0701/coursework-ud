@@ -1,3 +1,4 @@
+<b>Создать выставку</b><br><br>
 <table border = 0>
 	<form action="index.php?action=showing" method="POST" id = 'id_form' name = 'form_show'>
 		<tr>

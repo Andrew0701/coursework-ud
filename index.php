@@ -9,7 +9,7 @@
 <body>
 <div id="TopMainPan">
   <div id="topPan">
-    <div id="topheaderPan"> <a href=""><img src="images/logo.png"height="54" border="0"/></a>
+    <div id="topheaderPan"> <a href=""><img src="images/logo.png" height="54" border="0"/></a>
       <p class="captiontext">Онлайн-библиотека СевГУ.</p>
     </div>
     <div id="topbodyleftPan">

@@ -1,4 +1,4 @@
-Тут добавляется литература преподавателем или библитекарем.<br><br>
+<b>Тут добавляется литература преподавателем или библитекарем.</b><br><br>
 <table border = 0>
 	<form action="index.php?action=add" method="POST" id = 'id_form'>
 		<tr>
@@ -70,7 +70,7 @@
 				if (mysql_query($query) == false){
 					echo 'Ошибка в запросе';
 				}else{
-					echo 'Всё ок, ресурс добавлен (без автора)';
+					echo 'Ресурс успешно добавлен.';
 											// Проверка всех авторов и запись их id в массив array_of_id_authors[]
 					
 					$authors = split(',',$_POST['author']);
