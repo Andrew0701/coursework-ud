@@ -15,7 +15,7 @@
     <div id="topbodyleftPan">
       <ul>
         <li><a href = 'index.php'>Главная</a></li>
-        <li  class="border"><a href="index.php?action=about">О библиотеке</a></li>
+        <li><a href="index.php?action=about">О библиотеке</a></li>
         <?php
 			if (isset($_COOKIE['access'])){
 				echo "<li><a href='index.php?action=search'>Поиск</a></li>";

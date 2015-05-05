@@ -54,13 +54,17 @@
 				<td>Издательство</td>
 				<td>Кол-во страниц</td>
 				<td>Ссылка</td>';
-				
 				$array_of_show = check_show();
 				echo '</tr>';
 				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';
-					for ($i = 1; $i<count($row); $i++)
-						echo '<td>'.$row[$i].'</td>';
+					for ($i = 1; $i<count($row); $i++) {
+						if ($i == 5) {
+							echo '<td><a href="'.$row[$i].'">Скачать</a></td>';
+						} else {
+							echo '<td>'.$row[$i].'</td>';
+						}
+					}
 					change_views($row[0],$_COOKIE['id']);
 					check_librarian($array_of_show,$row[0]);
 					echo '</tr>';
