@@ -1,4 +1,4 @@
-Список актвных студентов
+<b>Список актвных студентов</b>
 <?php
 	$query = "select reg.login, views.count from reg,views where reg.id in(select id_reg from views order by count) limit 3";
 	include_once("connect.php");
@@ -21,3 +21,4 @@
 		echo "Exception";
 	}
 ?>
+

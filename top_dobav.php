@@ -1,4 +1,4 @@
-Самые активные заполнители библиотеки
+<b>Самые активные заполнители библиотеки:</b>
 <?php	
 	$query = "select login from reg where id in (select id_reg as count from resource order by count) limit 3";
 	include_once("connect.php");
