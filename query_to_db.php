@@ -1,4 +1,4 @@
-Ниже расположено окно для сложного запроса:<br><br>
+<b>Ниже расположено окно для сложного запроса:</b><br><br>
 <form action="index.php?action=query_to_db" method="POST">
 	<textarea rows=5 cols=35 name = 'sql'></textarea><br><br>
 	<input type="submit" value="OK" name="submit_sql">

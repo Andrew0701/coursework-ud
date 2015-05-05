@@ -6,7 +6,11 @@
 	try {
 		if ($q){
 			echo '<br>';
-			echo '<table border=1>';
+			echo '<table border=0>';
+			echo '<tr>
+			<td>Имя</td>
+			<td>Кол-во просмотров</td>
+			</tr>';
 			while ($row = mysql_fetch_row($q)) {
 				echo '<tr>';
 				for ($i = 0; $i<count($row); $i++)

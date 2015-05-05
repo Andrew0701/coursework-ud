@@ -1,4 +1,4 @@
-Поиск можно осуществить по называнию произведения или по авторам.
+<b>Поиск можно осуществить по называнию произведения или по авторам.</b>
 <br><br>
 <form action="index.php?action=search" method="POST">
 	<table>
@@ -46,7 +46,16 @@
 		
 		if ($q){
 			if (mysql_num_rows($q) > 0){
+				echo '<br><h3>Результат поиска:</h3><br>';
 				echo '<table border=1>';
+				echo '<tr>
+				<td>Название</td>
+				<td>Год</td>
+				<td>Издательство</td>
+				<td>Кол-во страниц</td>
+				<td>Ссылка</td>
+				<td colspan=2>Доступные выставки</td>
+				</tr>';
 				$array_of_show = check_show();
 				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';

@@ -52,7 +52,7 @@ ul {
 	font-weight: bold;
 	position: absolute;
 	top: 13px;
-	left: 238px;
+	left: 75px;
 }
 
 /*----/Top Header Panel----*/
@@ -199,111 +199,24 @@ ul {
 	width: 248px;
 	float: right;
 }
-#bodyrightPan form {
-	width: 264px;
-	height: 162px;
-	background: #FFF0CC;
-	color: #000;
-	font: 11px/14px Verdana, Arial, Helvetica, sans-serif;
-}
-#bodyrightPan form h2 {
-	width: 253px;
-	height: 25px;
-	background: #8D6C1B;
-	color: #fff;
-	font: 20px/25px Georgia, "Times New Roman", Times, serif;
-	font-weight: bold;
-	padding: 0 0 0 11px;
-	margin: 0 0 6px 0;
+
+#bodyrightPan table {
+	border-spacing: 0px;
+	width: 100%;
 }
 
-#formPan {
-	width: 238px;
-	height: 21px;
-	display: block;
-	padding: 9px 15px 0 11px;
-}
-#formPantwo {
-	width: 238px;
-	height: 21px;
-	display: block;
-	padding: 9px 15px 0 11px;
-}
-#formPanthree {
-	width: 238px;
-	height: 21px;
-	display: block;
-	padding: 9px 15px 0 11px;
-}
-form label {
-	width: 82px;
-	height: 21px;
-	display: block;
-	float: left;
-	background: #FFFAEE;
-	color: #000;
-	text-align: center;
-	line-height: 21px;
-	margin: 0 16px 0 0;
-}
-form select {
-	width: 133px;
-	height: 18px;
-	display: block;
-	float: left;
-	line-height: 21px;
-	font-size: 12px;
-}
-form input {
-	width: 55px;
-	height: 15px;
-	background: #8D6C1B;
-	color: #fff;
-	font-weight: bold;
-	border: none;
-	font-size: 11px;
-	margin: 10px 0 0 185px;
-	padding: 0px;
-}
-
-#bodyrightPan h3 {
-	background: #fff;
-	color: #BE8A0A;
-	font: 27px Georgia, "Times New Roman", Times, serif;
-	font-weight: bold;
-	text-transform: uppercase;
-	margin: 15px 0;
-}
-
-#bodyrightPan ul {
-	width: 240px;
-}
-#bodyrightPan ul li {
-	width: 240px;
-	height: 20px;
-}
-#bodyrightPan ul li a {
-	width: 224px;
-	height: 20px;
-	background: url(images/bullet-normal.gif) 0 6px no-repeat #fff;
-	color: #4D4D4D;
-	line-height: 20px;
-	text-decoration: underline;
-	padding: 0 0 0 16px;
-}
-#bodyrightPan ul li a:hover {
-	background: url(images/bullet-hover.gif) 0 6px no-repeat #fff;
-	color: #111;
-	text-decoration: underline;
+#bodyleftPan table {
+	width: 485px;
+	border-spacing: 0px;
 }
 
 /*----FOOTER PANEL----*/
 #footermainPan {
-	height: 40px;
+	height: 35px;
 	background: url(images/footerbg.gif) 0 0 repeat-x #8D6C1B;
 	color: #fff;
 	clear: both;
-	padding: 40px 0 0;
+	padding: 17px 0 0;
 	position: fixed; /* Фиксированное положение */
     left: 0; 
     bottom: 0;
