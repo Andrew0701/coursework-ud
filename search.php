@@ -52,6 +52,7 @@
 					echo '<tr>';
 					for ($i = 1; $i<count($row); $i++)
 						echo '<td>'.$row[$i].'</td>';
+					change_views($row[0],$_COOKIE['id']);
 					check_librarian($array_of_show,$row[0]);
 					echo '</tr>';
 				}
@@ -60,6 +61,20 @@
 				echo 'Поиск результата не дал';
 			}
 			mysql_free_result($q);
+		}
+	}
+	
+	function change_views($resource,$id_reg){
+		$query = "select count from views where id_resource=".$resource." and id_reg = ".$id_reg;
+		$q = mysql_query($query) or die(mysql_error());
+		if (mysql_num_rows($q) > 0){
+			$row = mysql_fetch_row($q);
+			$query = "UPDATE `views` SET `count`=".($row[0]+1)." WHERE `id_resource`=".$resource." and `id_reg`=".$id_reg;
+			$q = mysql_query($query) or die(mysql_error());
+			
+		}else{
+			$query = "insert into `views` values(".$resource.",".$id_reg.",1)";
+			$q = mysql_query($query) or die(mysql_error());
 		}
 	}
 	
