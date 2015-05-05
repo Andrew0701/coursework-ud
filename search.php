@@ -54,15 +54,14 @@
 				<td>Издательство</td>
 				<td>Кол-во страниц</td>
 				<td>Ссылка</td>';
-				
-				$array_of_show = check_show();
+				$array_of_id = check_show(); //Получение id и названия актуальных выставок
 				echo '</tr>';
 				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';
 					for ($i = 1; $i<count($row); $i++)
 						echo '<td>'.$row[$i].'</td>';
-					change_views($row[0],$_COOKIE['id']);
-					check_librarian($array_of_show,$row[0]);
+					change_views($row[0],$_COOKIE['id']); // Отправляем данные в views
+					check_user($array_of_id,$row[0]); // Вывод доп меню для библиотекаря
 					echo '</tr>';
 				}
 				echo '</table>';
@@ -102,31 +101,73 @@
 			}else{
 				return false;
 			}
+		}elseif ($_COOKIE['access'] == 'Преподаватель'){
+			echo '<td colspan=2>Рекомендовать</td>';
+			$query = "select id_subject,name from `subject` where id_subject = (select id_subject from teacher_subject where id_reg =".$_COOKIE['id'].")";
+			$q = mysql_query($query) or die(mysql_error());
+			if (mysql_num_rows($q)>0){
+				$c = 0;
+				while ($row = mysql_fetch_row($q)){
+					$array_of_show[$c++] = $row[0];
+					$array_of_show[$c++] = $row[1];
+				}
+				return $array_of_show;
+			}else{
+				return false;
+			}
 		}
 	}
 
-	function check_librarian($array_of_show,$resource){
-		if ($_COOKIE['access'] == 'Библиотекарь' && count($array_of_show)>1){
-			echo '<td><form name = "s_w" method = "POST" action = "index.php?action=search">
-			<select name = "name_show">';
-			for ($i = 0; $i<count($array_of_show); $i+=2){
-				echo "<option value='".$array_of_show[$i]."'>".$array_of_show[$i+1]."</option>";
+	function check_user($array_of_id,$resource){
+		if (count($array_of_id)>1){
+			if ($_COOKIE['access'] == 'Библиотекарь'){
+				echo '<td><form name = "s_w" method = "POST" action = "index.php?action=search">
+				<select name = "name_show">';
+				for ($i = 0; $i<count($array_of_id); $i+=2){
+					echo "<option value='".$array_of_id[$i]."'>".$array_of_id[$i+1]."</option>";
+				}
+				echo '</select></td>
+				<td><input type = "hidden" name= "resource" value = "'.$resource.'">
+				<input class = "btm" name = "submit_show" type = "submit" value= "Выставить"></form></td>';
+			}elseif($_COOKIE['access'] == 'Преподаватель'){
+				echo '<td><form name = "s_w" method = "POST" action = "index.php?action=search">
+				<select name = "name_show">';
+				for ($i = 0; $i<count($array_of_id); $i+=2){
+					echo "<option value='".$array_of_id[$i]."'>".$array_of_id[$i+1]."</option>";
+				}
+				echo '</select></td>
+				<td><input type = "hidden" name= "resource" value = "'.$resource.'">
+				<input class = "btm" name = "submit_show" type = "submit" value= "Выставить"></form></td>';
 			}
-			echo '</select></td>
-			<td><input type = "hidden" name= "resource" value = "'.$resource.'">
-			<input class = "btm" name = "submit_show" type = "submit" value= "Выставить"></form></td>';
 		}
 	}
 	
 	if (isset($_POST['submit_show'])){
-		$query = "select * from item where id_resource = ".$_POST['resource']." and id_show = ".$_POST['name_show'];
-		$q = mysql_query($query) or die(mysql_error());
-		if (mysql_num_rows($q) > 0){
-			echo "Не получилось, уже такой есть";
-		}else{
-			$query = "insert into item values (".$_POST['name_show'].",".$_POST['resource'].")";
-			$q = mysql_query($query) or die(mysql_error());
-			echo 'Источник добавлен';
+		switch($_COOKIE['access']){
+			case 'Библиотекарь':
+				$query = "select * from item where id_resource = ".$_POST['resource']." and id_show = ".$_POST['name_show'];
+				$q = mysql_query($query) or die(mysql_error());
+				if (mysql_num_rows($q) > 0){
+					echo "Не получилось, уже такой есть";
+				}else{
+					$query = "insert into item values (".$_POST['name_show'].",".$_POST['resource'].")";
+					$q = mysql_query($query) or die(mysql_error());
+					echo 'Источник добавлен';
+				}
+				break;
+			case 'Преподаватель':
+				$query = "select * from recommendation where id_resource = ".$_POST['resource']." and id_reg = ".$_COOKIE['id'];
+				$q = mysql_query($query) or die(mysql_error());
+				if (mysql_num_rows($q) > 0){
+					echo "Не получилось, уже рекомендовано";
+				}else{
+					$query = "insert into recommendation values (".$_COOKIE['id'].",".$_POST['resource'].",".$_POST['name_show'].")";
+					$q = mysql_query($query) or die(mysql_error());
+					echo 'Рекомендован';
+				}
+				break;
+			default:
+				break;
 		}
 	}
 ?>
