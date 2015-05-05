@@ -74,7 +74,6 @@
 											// Проверка всех авторов и запись их id в массив array_of_id_authors[]
 					
 					$authors = split(',',$_POST['author']);
-					print_r ($authors);
 					$c = 0;
 					for ($i = 0; $i < count($authors); $i++){
 						$authors[$i] = trim ($authors[$i]);
@@ -96,7 +95,6 @@
 					$query = "select * from resource where name = '".$_POST['name']."'";
 					$sql = mysql_query($query) or die(mysql_error());
 					$row = mysql_fetch_row($sql);
-					print_r ($array_of_id_authors);
 					for ($i = 0; $i < count($array_of_id_authors); $i++){
 						$query = "insert into author_resource 
 						values (".$row[0].", ".$array_of_id_authors[$i].")";

@@ -94,13 +94,14 @@
 	}
 	
 	if (isset($_POST['submit_show'])){
-		$query = "select * from item where id_resource = ".$_POST['resource'];
+		$query = "select * from item where id_resource = ".$_POST['resource']." and id_show = ".$_POST['name_show'];
 		$q = mysql_query($query) or die(mysql_error());
 		if (mysql_num_rows($q) > 0){
 			echo "Не получилось, уже такой есть";
 		}else{
 			$query = "insert into item values (".$_POST['name_show'].",".$_POST['resource'].")";
 			$q = mysql_query($query) or die(mysql_error());
+			echo 'Источник добавлен';
 		}
 	}
 ?>
