@@ -224,8 +224,7 @@
 		$row = mysql_fetch_row($res);
 		
 		echo "<tr>
-					<td>Статус:</td>
-					<td>".$row[0]." библиотекарь</td>
+					<td colspan = 2>".$row[0]." библиотекарь</td>
 				</tr>";
 		echo "</table>";
 	}
@@ -287,20 +286,4 @@
 	function get_banner(){
 		echo "Тут никогда не будет вашей рекламы";
 	}
-	//~ function get_student_info() {
-		//~ require_once('connect.php');
-		//~ $id = $_COOKIE['id'];
-		//~ $query = "SELECT * FROM student WHERE id_reg = ".$id;
-		//~ $q = mysql_query($query) or die(mysql_error());
-		//~ 
-		//~ while ($row = mysql_fetch_row($q)) {
-			//~ for ($i = 0; $i<count($row); $i++)
-				//~ echo $row[$i].'<br>';
-		//~ }
-		//~ mysql_free_result($q);
-		//~ $row = mysql_fetch_row($res);
-		//~ echo "Номер зачетной книжки:  ".$row[0]."<br>";
-		//~ echo "Имя:  ".$row[3]."<br>";
-		//~ echo "Группа:  ".$row[2]."<br>";
-	//~ }
 ?>	

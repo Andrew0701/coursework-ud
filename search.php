@@ -40,15 +40,21 @@
 			$q = mysql_query($query) or die(mysql_error());
 			
 			if ($q){
-				
-				echo '<table>';
-				while ($row = mysql_fetch_row($q)) {
-					echo '<tr>';
-					for ($i = 0; $i<count($row); $i++)
-						echo '<td>'.$row[$i].'</td>';
-					echo '</tr>';
+				if (mysql_num_rows($q) > 0){
+					echo '<table>';
+					while ($row = mysql_fetch_row($q)) {
+						echo '<tr>';
+						for ($i = 0; $i<count($row); $i++)
+							echo '<td>'.$row[$i].'</td>';
+						if ($_COOKIE['access'] == 'Библиотекарь'){
+							echo '<td><a href= "#">Выставить</a></td>';
+						}
+						echo '</tr>';
+					}
+					echo '</table>';
+				}else{
+					echo 'Поиск результата не дал';
 				}
-				echo '</table>';
 				mysql_free_result($q);
 			}
 		}
@@ -59,31 +65,64 @@
 			$q = mysql_query($query) or die(mysql_error());
 			
 			if ($q){
-				echo '<table>';
-				while ($row = mysql_fetch_row($q)) {
-					echo '<tr>';
-					for ($i = 0; $i<count($row); $i++)
-						echo '<td>'.$row[$i].'</td>';
-					echo '</tr>';
+				if (mysql_num_rows($q) > 0){
+					echo '<table>';
+					while ($row = mysql_fetch_row($q)) {
+						echo '<tr>';
+						for ($i = 0; $i<count($row); $i++)
+							echo '<td>'.$row[$i].'</td>';
+						if ($_COOKIE['access'] == 'Библиотекарь'){
+							echo '<td><a href= "#">Выставить</a></td>';
+						}
+						echo '</tr>';
+					}
+					echo '</table>';
+					mysql_free_result($q);
+				}else{
+					echo 'Поиск результата не дал';
 				}
-				echo '</table>';
-				mysql_free_result($q);
 			}
 	}
 	if (isset($_POST['submit_all'])){
 		$query = "select * from resource";
-		$q = mysql_query($query) or die(mysql_error());
-		if ($q){
-			
-			echo '<table>';
-			while ($row = mysql_fetch_row($q)) {
-				echo '<tr>';
-				for ($i = 0; $i<count($row); $i++)
-					echo '<td>'.$row[$i].'</td>';
-				echo '</tr>';
+		$sql = mysql_query($query) or die(mysql_error());
+		if ($sql){
+			if (mysql_num_rows($sql) > 0){
+				echo '<table border =1 cellspacing=0>';
+				if ($_COOKIE['access'] == 'Библиотекарь'){
+					$query = "select id_show,name from `show` where adddate(date_start, interval `time` day) > curdate()";
+					include_once("connect.php");
+					$q = mysql_query($query) or die(mysql_error());
+					if (mysql_num_rows($q)>0){
+						$showing = true;
+						$c = 0;
+						while ($row = mysql_fetch_row($q)){
+							$array_of_show[$c++] = $row[0];
+							$array_of_show[$c++] = $row[1];
+						}
+					}else{
+						$showing = false;
+					}
+				}
+				while ($row = mysql_fetch_row($sql)) {
+					echo '<tr>';
+					for ($i = 0; $i<count($row); $i++)
+						echo '<td>'.$row[$i].'</td>';
+					if ($_COOKIE['access'] == 'Библиотекарь' && $showing){
+						
+						echo '<td><form name = "s_w"><select name = "name_show">';
+						for ($i = 0; $i<count($array_of_show); $i+=2){
+							echo "<option value='".$array_of_show[$i]."'>".$array_of_show[$i]."</option>";
+						}
+						echo '</select></td><td><input name = "submit" type = "submit" value= "Выставить"></form></td>';
+					}
+					echo '</tr>';
+				}
+				echo '</table>';
+			}else{
+				echo 'Поиск результата не дал';
 			}
-			echo '</table>';
-			mysql_free_result($q);
+			mysql_free_result($sql);
 		}
 	}
 ?>
