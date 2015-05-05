@@ -23,8 +23,13 @@
 				if (mysql_num_rows($q) > 0){
 					while ($row = mysql_fetch_row($q)) {
 						echo '<tr>';
-						for ($i = 1; $i<count($row); $i++)
-							echo '<td>'.$row[$i].'</td>';
+						for ($i = 1; $i<count($row); $i++) {
+							if ($i == 5) {
+								echo '<td><a href="'.$row[$i].'">Скачать</a></td>';
+							} else {
+								echo '<td>'.$row[$i].'</td>';
+							}
+						}
 						echo '</tr>';
 						change_views($row[0],$_COOKIE['id']);
 					}
