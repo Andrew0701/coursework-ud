@@ -26,84 +26,46 @@
 <?php
 	if(isset($_POST['submit_search'])){
 		if (empty($_POST['name']) and !empty($_POST['author'])){
-			$query = "select * from resource where id_resource in (select id_resource from author_resource where id_author = (select id_author from author where name = '".$_POST['author']."'))";
-			include_once("connect.php");
-			$q = mysql_query($query) or die(mysql_error());
-			
-			if ($q){
-				if (mysql_num_rows($q) > 0){
-					echo '<table>';
-					$array_of_show = check_show();
-					while ($row = mysql_fetch_row($q)) {
-						echo '<tr>';
-						for ($i = 0; $i<count($row); $i++)
-							echo '<td>'.$row[$i].'</td>';
-						if ($_COOKIE['access'] == 'Библиотекарь'){
-							echo '<td><a href= "#">Выставить</a></td>';
-						}
-						check_librarian($array_of_show);
-						echo '</tr>';
-					}
-					echo '</table>';
-				}else{
-					echo 'Поиск результата не дал';
-				}
-				mysql_free_result($q);
-			}
+			$query = "select id_resource,name,year,publisher,pages,reference from resource where id_resource in (select id_resource from author_resource where id_author = (select id_author from author where name = '".$_POST['author']."'))";
+			get_resource($query);
 		}
-	}
-	if (!empty($_POST['name']) and empty($_POST['author'])){
-		$query = "select * from resource where name = '".$_POST['name']."'";
-			include_once("connect.php");
-			$q = mysql_query($query) or die(mysql_error());
-			
-			if ($q){
-				if (mysql_num_rows($q) > 0){
-					echo '<table>';
-					$array_of_show = check_show();
-					while ($row = mysql_fetch_row($q)) {
-						echo '<tr>';
-						for ($i = 0; $i<count($row); $i++)
-							echo '<td>'.$row[$i].'</td>';
-						if ($_COOKIE['access'] == 'Библиотекарь'){
-							echo '<td><a href= "#">Выставить</a></td>';
-						}
-						check_librarian($array_of_show);
-						echo '</tr>';
-					}
-					echo '</table>';
-					mysql_free_result($q);
-				}else{
-					echo 'Поиск результата не дал';
-				}
-			}
+		if (!empty($_POST['name']) and empty($_POST['author'])){
+			$query = "select id_resource,name,year,publisher,pages,reference from resource where name = '".$_POST['name']."'";
+			get_resource($query);
+		}
+		
 	}
 	if (isset($_POST['submit_all'])){
-		$query = "select * from resource";
-		$sql = mysql_query($query) or die(mysql_error());
-		if ($sql){
-			if (mysql_num_rows($sql) > 0){
-				echo '<table border =1 cellspacing=0>';
+		$query = "select id_resource,name,year,publisher,pages,reference from resource";
+		get_resource($query);
+	}
+	
+	function get_resource($query){
+		include_once("connect.php");
+		$q = mysql_query($query) or die(mysql_error());
+		
+		if ($q){
+			if (mysql_num_rows($q) > 0){
+				echo '<table border=1>';
 				$array_of_show = check_show();
-				while ($row = mysql_fetch_row($sql)) {
+				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';
-					for ($i = 0; $i<count($row); $i++)
+					for ($i = 1; $i<count($row); $i++)
 						echo '<td>'.$row[$i].'</td>';
-					check_librarian($array_of_show);
+					check_librarian($array_of_show,$row[0]);
 					echo '</tr>';
 				}
 				echo '</table>';
 			}else{
 				echo 'Поиск результата не дал';
 			}
-			mysql_free_result($sql);
+			mysql_free_result($q);
 		}
 	}
 	
 	function check_show(){
 		if ($_COOKIE['access'] == 'Библиотекарь'){
 			$query = "select id_show,name from `show` where adddate(date_start, interval `time` day) > curdate()";
-			include_once("connect.php");
 			$q = mysql_query($query) or die(mysql_error());
 			if (mysql_num_rows($q)>0){
 				$c = 0;
@@ -118,13 +80,27 @@
 		}
 	}
 
-	function check_librarian($array_of_show){
+	function check_librarian($array_of_show,$resource){
 		if ($_COOKIE['access'] == 'Библиотекарь' && count($array_of_show)>1){
-			echo '<td><form name = "s_w"><select name = "name_show">';
+			echo '<td><form name = "s_w" method = "POST" action = "index.php?action=search">
+			<select name = "name_show">';
 			for ($i = 0; $i<count($array_of_show); $i+=2){
 				echo "<option value='".$array_of_show[$i]."'>".$array_of_show[$i+1]."</option>";
 			}
-			echo '</select></td><td><input name = "submit" type = "submit" value= "Выставить"></form></td>';
+			echo '</select></td>
+			<td><input type = "hidden" name= "resource" value = "'.$resource.'">
+			<input class = "btm" name = "submit_show" type = "submit" value= "Выставить"></form></td>';
+		}
+	}
+	
+	if (isset($_POST['submit_show'])){
+		$query = "select * from item where id_resource = ".$_POST['resource'];
+		$q = mysql_query($query) or die(mysql_error());
+		if (mysql_num_rows($q) > 0){
+			echo "Не получилось, уже такой есть";
+		}else{
+			$query = "insert into item values (".$_POST['name_show'].",".$_POST['resource'].")";
+			$q = mysql_query($query) or die(mysql_error());
 		}
 	}
 ?>

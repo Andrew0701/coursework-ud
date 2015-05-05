@@ -171,6 +171,7 @@ ul {
 
 #bodyleftPan table {
 	width: 485px;
+	border-spacing: 0px;
 }
 
 #bodyMainPan input {
@@ -184,7 +185,14 @@ ul {
 	font-size: 11px;
 	padding: 0px;
 }
+#bodyMainPan input.btm{
+	width: 100%;
+}
 
+#bodyMainPan select {
+	height: 23px;
+	width: 90px;
+}
 /*--------/Body Left Panel----------*/
 /*--------Body Right Panel----------*/
 #bodyrightPan {
