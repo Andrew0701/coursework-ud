@@ -1,6 +1,6 @@
 <b>Список актвных студентов</b>
 <?php
-	$query = "select reg.login, views.count from reg,views where reg.id in(select id_reg from views order by count) limit 3";
+	$query = "select reg.login,sum(`count`) from views,reg where reg.id=views.id_reg group by reg.login order by `count` desc limit 5;";
 	include_once("connect.php");
 	$q = mysql_query($query) or mysql_error();
 	try {
