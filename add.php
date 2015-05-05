@@ -1,8 +1,8 @@
-Тут добавляется литература преподавателем или библитекарем.<br>
+Тут добавляется литература преподавателем или библитекарем.<br><br>
 <table border = 0>
 	<form action="index.php?action=add" method="POST" id = 'id_form'>
 		<tr>
-			<td>Название</td>
+			<td width=100>Название</td>
 			<td><input type="text" name="name" ></td>
 		</tr>
 		<tr>
@@ -29,8 +29,8 @@
 			<td><input type="text" name="publ"></td>
 		</tr>
 		<tr>
-			<td></td>
 			<td><input type="submit" value="Опубликовать" name="submit_add" ></td>
+			<td></td>
 		</tr>
 	</form>
 </table>	
