@@ -1,4 +1,4 @@
-<b>Список актвных студентов</b>
+Список актвных пользователей
 <?php
 	$query = "select reg.login,sum(`count`) from views,reg where reg.id=views.id_reg group by reg.login order by `count` desc limit 5;";
 	include_once("connect.php");

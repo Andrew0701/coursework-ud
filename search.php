@@ -53,14 +53,15 @@
 				<td>Год</td>
 				<td>Издательство</td>
 				<td>Кол-во страниц</td>
-				<td>Ссылка</td>
-				<td colspan=2>Доступные выставки</td>
-				</tr>';
+				<td>Ссылка</td>';
+				
 				$array_of_show = check_show();
+				echo '</tr>';
 				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';
 					for ($i = 1; $i<count($row); $i++)
 						echo '<td>'.$row[$i].'</td>';
+					change_views($row[0],$_COOKIE['id']);
 					check_librarian($array_of_show,$row[0]);
 					echo '</tr>';
 				}
@@ -72,8 +73,23 @@
 		}
 	}
 	
+	function change_views($resource,$id_reg){
+		$query = "select count from views where id_resource=".$resource." and id_reg = ".$id_reg;
+		$q = mysql_query($query) or die(mysql_error());
+		if (mysql_num_rows($q) > 0){
+			$row = mysql_fetch_row($q);
+			$query = "UPDATE `views` SET `count`=".($row[0]+1)." WHERE `id_resource`=".$resource." and `id_reg`=".$id_reg;
+			$q = mysql_query($query) or die(mysql_error());
+			
+		}else{
+			$query = "insert into `views` values(".$resource.",".$id_reg.",1)";
+			$q = mysql_query($query) or die(mysql_error());
+		}
+	}
+	
 	function check_show(){
 		if ($_COOKIE['access'] == 'Библиотекарь'){
+			echo '<td colspan=2>Доступные выставки</td>';
 			$query = "select id_show,name from `show` where adddate(date_start, interval `time` day) > curdate()";
 			$q = mysql_query($query) or die(mysql_error());
 			if (mysql_num_rows($q)>0){
