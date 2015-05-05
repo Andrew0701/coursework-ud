@@ -1,12 +1,25 @@
 Список рекомендованной литературы от преподавателей
 <?php
-	$query = "select * from recomendation where id_subject in (select id_subject from subject where id_direction = ".$_COOKIE['id'].")";
+	$query = "SELECT name,reference
+FROM resource
+WHERE id_resource in(
+SELECT id_resource
+FROM recommendation
+WHERE id_subject
+IN (SELECT id_subject
+FROM subject
+WHERE id_direction = (
+
+SELECT `group`
+FROM student
+WHERE id_reg = ".$_COOKIE['id']."
+)))";
 	include_once("connect.php");
 	$q = mysql_query($query) or mysql_error();
 	try {
 		if ($q){
 			echo '<br>';
-			echo '<table border=1>';
+			echo '<table border=1><tr><td><b>Название</b></td><td><b>Ссылка</b></td></tr>';
 			while ($row = mysql_fetch_row($q)) {
 				echo '<tr>';
 				for ($i = 0; $i<count($row); $i++)

@@ -69,7 +69,7 @@
 						require_once("about_query_to_db.html");
 						break;
 					default:
-						echo "Три рандомных слова.";
+						echo "Ошибочные три рандомных слова.";
 						break;
 				}
 			}else{
