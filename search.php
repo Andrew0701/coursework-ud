@@ -24,8 +24,6 @@
 </form>
 
 <?php
-	$showing = false;
-
 	if(isset($_POST['submit_search'])){
 		if (empty($_POST['name']) and !empty($_POST['author'])){
 			$query = "select * from resource where id_resource in (select id_resource from author_resource where id_author = (select id_author from author where name = '".$_POST['author']."'))";
@@ -35,7 +33,7 @@
 			if ($q){
 				if (mysql_num_rows($q) > 0){
 					echo '<table>';
-					check_show();
+					$array_of_show = check_show();
 					while ($row = mysql_fetch_row($q)) {
 						echo '<tr>';
 						for ($i = 0; $i<count($row); $i++)
@@ -43,7 +41,7 @@
 						if ($_COOKIE['access'] == 'Библиотекарь'){
 							echo '<td><a href= "#">Выставить</a></td>';
 						}
-						check_librarian();
+						check_librarian($array_of_show);
 						echo '</tr>';
 					}
 					echo '</table>';
@@ -62,7 +60,7 @@
 			if ($q){
 				if (mysql_num_rows($q) > 0){
 					echo '<table>';
-					check_show();
+					$array_of_show = check_show();
 					while ($row = mysql_fetch_row($q)) {
 						echo '<tr>';
 						for ($i = 0; $i<count($row); $i++)
@@ -70,7 +68,7 @@
 						if ($_COOKIE['access'] == 'Библиотекарь'){
 							echo '<td><a href= "#">Выставить</a></td>';
 						}
-						check_librarian();
+						check_librarian($array_of_show);
 						echo '</tr>';
 					}
 					echo '</table>';
@@ -86,12 +84,12 @@
 		if ($sql){
 			if (mysql_num_rows($sql) > 0){
 				echo '<table border =1 cellspacing=0>';
-				check_show();
+				$array_of_show = check_show();
 				while ($row = mysql_fetch_row($sql)) {
 					echo '<tr>';
 					for ($i = 0; $i<count($row); $i++)
 						echo '<td>'.$row[$i].'</td>';
-					check_librarian();
+					check_librarian($array_of_show);
 					echo '</tr>';
 				}
 				echo '</table>';
@@ -108,23 +106,23 @@
 			include_once("connect.php");
 			$q = mysql_query($query) or die(mysql_error());
 			if (mysql_num_rows($q)>0){
-				$showing = true;
 				$c = 0;
 				while ($row = mysql_fetch_row($q)){
 					$array_of_show[$c++] = $row[0];
 					$array_of_show[$c++] = $row[1];
 				}
+				return $array_of_show;
 			}else{
-				$showing = false;
+				return false;
 			}
 		}
 	}
 
-	function check_librarian(){
-		if ($_COOKIE['access'] == 'Библиотекарь' && $showing){
+	function check_librarian($array_of_show){
+		if ($_COOKIE['access'] == 'Библиотекарь' && count($array_of_show)>1){
 			echo '<td><form name = "s_w"><select name = "name_show">';
 			for ($i = 0; $i<count($array_of_show); $i+=2){
-				echo "<option value='".$array_of_show[$i]."'>".$array_of_show[$i]."</option>";
+				echo "<option value='".$array_of_show[$i]."'>".$array_of_show[$i+1]."</option>";
 			}
 			echo '</select></td><td><input name = "submit" type = "submit" value= "Выставить"></form></td>';
 		}
