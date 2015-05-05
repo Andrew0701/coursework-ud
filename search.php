@@ -58,8 +58,13 @@
 				echo '</tr>';
 				while ($row = mysql_fetch_row($q)) {
 					echo '<tr>';
-					for ($i = 1; $i<count($row); $i++)
-						echo '<td>'.$row[$i].'</td>';
+					for ($i = 1; $i<count($row); $i++) {
+						if ($i == 5) {
+							echo '<td><a href="'.$row[$i].'">Скачать</a></td>';
+						} else {
+							echo '<td>'.$row[$i].'</td>';
+						}
+					}
 					change_views($row[0],$_COOKIE['id']); // Отправляем данные в views
 					check_user($array_of_id,$row[0]); // Вывод доп меню для библиотекаря
 					echo '</tr>';
@@ -137,7 +142,7 @@
 				}
 				echo '</select></td>
 				<td><input type = "hidden" name= "resource" value = "'.$resource.'">
-				<input class = "btm" name = "submit_show" type = "submit" value= "Выставить"></form></td>';
+				<input class = "btm" name = "submit_show" type = "submit" value= "Рекомендовать"></form></td>';
 			}
 		}
 	}
